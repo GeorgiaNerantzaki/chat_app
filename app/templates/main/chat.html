@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+{%block content%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Chat App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Latest Chat</a>
+        <a class="nav-link disabled" href="{{url_for('main.allcontact')}}">Contacts</a>
+        <a class="nav-item nav-link" href="{{url_for('main.addcontact')}}">New Contact</a>
+        <a class="nav-item nav-link" href="{{url_for('auth.logout')}}">Log out</a>
+      </div>
+    </div>
+  </nav>
+
+  {%if user_id1 == current_user.id%}
+  <h6 class = "dispplay-4" style = "text-align:center;color:blue;"><strong>{{chat.user2.username}}</strong></h6>
+  {%else%}
+  <h6 class = "dispplay-4" style = "text-align:center;color:blue;"><strong>{{chat.user1.username}}</strong></h6>
+  {%endif%}
+<hr class = "my-4">
+
+<form method = "post">
+    {{form.hidden_tag()}}
+    <div class="form-group">
+    <label for="message_text" >
+{{form.message_text.label}}
+    </label>
+    {{form.message_text(class = "form-control", id = message_text)}}
+</div>
+<input type = "submit" name = "newmessage" value = "Send Message">
+</form>
+{%endblock%}

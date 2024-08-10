@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Chat App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{url_for('main.allchats', user_id = current_user.id)}}">Latest Chat</a>
+        <a class="nav-item nav-link" href="{{url_for('main.allcontact')}}">Contacts</a>
+        <a class="nav-link disabled" href="#">New Contact</a>
+        <a class="nav-item nav-link" href="{{url_for('auth.logout')}}">Log out</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <form method = "post">
+    {{form.hidden_tag()}}
+    <div class = "form-group" >
+        <label for= "contact_email">
+            {{form.contact_email.label}}
+        </label>
+        {{form.contact_email(class = "form-control", id = "contact_email")}}
+        <input type = "submit" name = "addcontact" value = "Add Contact">
+    </div>
+</form>
+
+{% endblock %}

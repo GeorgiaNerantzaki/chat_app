@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{%block content%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Chat App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{url_for('main.allchats', user_id = current_user.id)}}">Latest Chats</a>
+        <a class="nav-link disabled" href="{{url_for('main.allcontact')}}">Contacts</a>
+        <a class="nav-item nav-link" href="{{url_for('main.addcontact')}}">New Contact</a>
+        <a class="nav-item nav-link" href="{{url_for('auth.logout')}}">Log out</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class = "jumbotron" style = "background-color:white;">
+    <table class= "table-bordered">
+        <thead>
+            <tr>
+            <th scope= "col">Username</th>
+            <th scope= "col">Email</th>
+            <th scope = "col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for contact in allcontacts%}
+            {%if contact.user1.id == current_user.id%}
+            <td scope = "col">{{contact.user2.username}}</td>
+            <td scope = "col">{{contact.user2.email}}</td>
+            <td scope = "col">
+            <form method = "post" action = "{{url_for('main.createchat', user_id = contact.user2.id)}}">
+              {{form.crsf_token}}
+              {{form.hidden_tag()}}
+              <input type = "submit" name = "newchat" value = "Send Message"></td>
+            </form>
+            {%endif%}
+            {%if contact.user2.id == current_user.id%}
+            <td scope = "col">{{contact.user1.username}}</td>
+            <td scope = "col">{{contact.user1.email}}</td>
+            <td scope = "col">
+            <form method = "post" action = "{{url_for('main.createchat', user_id = contact.user1.id)}}">
+              {{form.crsf_token}}
+              {{form.hidden_tag()}}
+              <input type = "submit" name = "newchat" value = "Send Message"></td>
+              {%endif%}
+            {%endfor%}
+        </tbody>
+    </table>
+  </div>
+{%endblock%}
