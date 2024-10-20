@@ -1,6 +1,6 @@
 from app.database import db
 from flask_security import UserMixin
-
+#User model
 class Users(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

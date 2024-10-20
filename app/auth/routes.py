@@ -6,7 +6,7 @@ from app.auth.utils import hash_pass,verify_pass
 from flask_login import login_user,current_user,logout_user
 from app.database import db
 
-
+#url for login
 @bp.route('/login',methods = ['GET','POST'])
 def login():
     loginform  = LoginForm()
@@ -41,7 +41,7 @@ def login():
 
 
 
-
+#url for registration
 @bp.route('/register',methods = ['GET','POST'])
 def register():
     registerform  = RegisterForm()
@@ -69,7 +69,7 @@ def register():
 
     return render_template('auth/register.html',form = registerform)
  
- 
+#url for logging out
 @bp.route('/logout')
 def logout():
     logout_user()
