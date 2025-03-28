@@ -1,17 +1,19 @@
 from flask_wtf import Form, FlaskForm
 from wtforms import StringField,validators, SubmitField,HiddenField
 from wtforms.validators import Email, DataRequired
-
+#define form for searching contacts
 class AddContactForm(FlaskForm):
     contact_email = StringField('Email', id  = "contact_email",validators = [DataRequired(), validators.Email()])
     submit  = SubmitField('Find Contact')
-    
+#define form for initializing contacts    
 class CreateChatForm(FlaskForm):
     createchat = HiddenField('Contact ID', validators = [DataRequired()])
     submit = SubmitField('Create Chat')
-    
+#define form for sending messages   
 class MessageForm(FlaskForm):
     message_text = StringField('Send a new Message',id = "message_text", validators = [DataRequired()])
     submit = SubmitField('Send Message')
+    
+
     
 

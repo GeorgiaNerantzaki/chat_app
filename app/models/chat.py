@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from app.database import db
-
+#chat model
 class Chat(db.Model):
     __tablename__ = "Chats"
     id = db.Column(db.Integer, primary_key=True)

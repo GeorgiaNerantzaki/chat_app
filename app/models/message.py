@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from app.database import db
 
-
+#message model
 class Message(db.Model):
     __tablename__ = "Messages"
     id = db.Column(db.Integer, primary_key=True)

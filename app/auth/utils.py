@@ -3,7 +3,7 @@ import hashlib
 import binascii
 
 
-
+#hash password
 def hash_pass(password):
     """Hash a password for storing."""
 
@@ -13,7 +13,7 @@ def hash_pass(password):
     pwdhash = binascii.hexlify(pwdhash)
     return (salt + pwdhash) 
 
-
+#hash_password
 def verify_pass(provided_password, stored_password):
     """Verify a stored password against one provided by user."""
     stored_password = stored_password.encode('ascii')

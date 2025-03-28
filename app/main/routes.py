@@ -11,7 +11,7 @@ from datetime import datetime
 from app.database import db
 from sqlalchemy import or_, and_
 
-
+#default url
 @bp.route('/')
 def route_default():
     return redirect(url_for('auth.login'))
@@ -21,7 +21,7 @@ def route_default():
 #@bp.route('/index')
 #def index():
  # return render_template('main/index.html')
-
+#url for adding contacts
 @bp.route('/addcontact',methods = ['GET','POST'])
 def addcontact():
   addcontactform = AddContactForm()     
@@ -33,14 +33,14 @@ def addcontact():
          db.session.add(newcontact)
          db.session.commit()
   return  render_template('main/addcontact.html', form  = addcontactform)
-
+#url for viewing all contatcs to initalize chats or send a message
 @bp.route('/allcontacts')
 def allcontact():
   form = CreateChatForm()
   allcontacts = Contact.query.filter(or_(Contact.user_id1 == current_user.id, Contact.user_id2 == current_user.id)).all()
   return render_template('main/allcontacts.html', allcontacts = allcontacts, form = form)         
 
-
+#url to initiate or create chats and redirect to messages 
 @bp.route('/createchat/<int:user_id>',methods = ["GET","POST"])
 def createchat(user_id):
   #messageform = MessageForm()
@@ -59,7 +59,8 @@ def createchat(user_id):
         db.session.commit()
         return redirect(url_for('main.new_message', chat_id = newchat.id))
   #return render_template('main/newmessageform.html')
-      
+
+#urlfor sending messages in a new or existing chat  
 @bp.route('/newmessage/<int:chat_id>', methods = ["GET","POST"])
 def new_message(chat_id):
      chat = Chat.query.get(chat_id)
@@ -79,7 +80,7 @@ def new_message(chat_id):
 
      return render_template('main/newmessageform.html', form = messageform, chat = chat, messages = messages, other_user=other_user, user = user)
    
-   
+#url for viewing all chats
 @bp.route('/allchats/<int:user_id>')
 def allchats(user_id):
       user_id = current_user.id
